@@ -230,7 +230,6 @@ section {
   height: auto;
   border-radius: var(--borda-radius);
   object-fit: cover;
-  /* Clip-path simplificado para garantir compatibilidade e exibição */
   clip-path: polygon(20% 0, 100% 0, 80% 100%, 0% 100%);
 }
 
@@ -373,9 +372,66 @@ section {
     transition: var(--transicao);
 }
 
+/* --- NOVA SEÇÃO PORTFÓLIO --- */
+.portfolio {
+  background-color: var(--cor-fundo-secundario);
+}
+.splide__slide {
+  border-radius: var(--borda-radius);
+  overflow: hidden;
+  position: relative;
+  cursor: grab;
+}
+.splide__slide img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  transition: var(--transicao);
+}
+.splide__slide:hover img {
+  transform: scale(1.1);
+}
+.slide-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 1rem;
+  background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+  color: white;
+  font-weight: bold;
+  font-family: 'Montserrat', sans-serif;
+  text-align: center;
+  transition: var(--transicao);
+  opacity: 0;
+}
+.splide__slide:hover .slide-caption {
+  opacity: 1;
+}
+
+/* Customização das setas do carrossel */
+.splide__arrow {
+  background: var(--cor-primaria);
+  opacity: 0.8;
+}
+.splide__arrow:hover {
+  opacity: 1;
+}
+.splide__arrow svg {
+  fill: white;
+}
+/* Customização da paginação do carrossel */
+.splide__pagination__page {
+  background: rgba(0,0,0,0.2);
+}
+.splide__pagination__page.is-active {
+  background: var(--cor-primaria);
+  transform: scale(1.2);
+}
+
 /* --- SEÇÃO DEPOIMENTOS --- */
 .depoimentos {
-    background-color: var(--cor-fundo-secundario);
+    background-color: var(--cor-fundo);
 }
 .depoimentos__grid {
     display: grid;
@@ -383,7 +439,7 @@ section {
     gap: 2rem;
 }
 .depoimento-card {
-    background: var(--cor-fundo);
+    background: var(--cor-fundo-secundario);
     padding: 2rem;
     border-radius: var(--borda-radius);
     text-align: center;
@@ -428,13 +484,16 @@ section {
 }
 
 /* --- SEÇÃO EQUIPE --- */
+.equipe {
+  background-color: var(--cor-fundo-secundario);
+}
 .equipe__grid {
     display: grid;
     grid-template-columns: 1fr;
     gap: 2rem;
 }
 .equipe-card {
-    background-color: var(--cor-fundo-secundario);
+    background-color: var(--cor-fundo);
     border-radius: var(--borda-radius);
     overflow: hidden;
     text-align: center;
@@ -448,7 +507,7 @@ section {
     width: 100%;
     height: 250px;
     object-fit: cover;
-    object-position: center; /* Garante que a imagem esteja centralizada */
+    object-position: center;
 }
 .equipe-card__info {
     padding: 1.5rem;
@@ -482,7 +541,7 @@ section {
 
 /* --- SEÇÃO CONTATO --- */
 .contato {
-  background-color: var(--cor-fundo-secundario);
+  background-color: var(--cor-fundo);
 }
 .contato__wrapper {
   display: grid;
@@ -511,7 +570,7 @@ section {
   padding: 1rem;
   border: 1px solid #ccc;
   border-radius: var(--borda-radius);
-  background-color: var(--cor-fundo);
+  background-color: var(--cor-fundo-secundario);
   color: var(--cor-texto);
   transition: var(--transicao);
   font-size: 1rem;
@@ -565,7 +624,7 @@ section {
 .rodape__logo {
   height: 40px;
   margin-bottom: 1rem;
-  filter: brightness(0) invert(1); /* Deixa o logo branco */
+  filter: brightness(0) invert(1);
 }
 .rodape__social {
   display: flex;
@@ -580,7 +639,7 @@ section {
   font-size: 0.9rem;
 }
 
-/* --- CHATBOT (mesmo código anterior) --- */
+/* --- CHATBOT --- */
 #chatbot-widget{position:fixed;bottom:20px;right:20px;z-index:1001}#chatbot-toggle{width:60px;height:60px;background:var(--gradiente-principal);color:#fff;border-radius:50%;display:flex;justify-content:center;align-items:center;font-size:1.8rem;cursor:pointer;box-shadow:0 5px 15px rgba(0,0,0,.2);transition:var(--transicao)}#chatbot-toggle:hover{transform:scale(1.1)}#chatbot-window{position:absolute;bottom:80px;right:0;width:320px;background-color:var(--cor-fundo-secundario);border-radius:var(--borda-radius);box-shadow:0 10px 30px rgba(0,0,0,.2);display:flex;flex-direction:column;transition:all .4s ease;transform-origin:bottom right}#chatbot-window.hidden{transform:scale(0);opacity:0}.chatbot-header{background-color:var(--cor-azul-escuro);color:#fff;padding:1rem;border-top-left-radius:var(--borda-radius);border-top-right-radius:var(--borda-radius);display:flex;justify-content:space-between;align-items:center}.chatbot-header p{font-weight:700}#chatbot-close{background:0 0;border:none;color:#fff;font-size:1.5rem;cursor:pointer}#chatbot-body{padding:1rem;height:300px;overflow-y:auto;display:flex;flex-direction:column;gap:1rem}.chat-message{padding:.75rem 1rem;border-radius:15px;max-width:80%;line-height:1.4}.bot-message{background-color:var(--cor-fundo);color:var(--cor-texto);border-top-left-radius:0;align-self:flex-start}#chatbot-options{padding:1rem;border-top:1px solid var(--cor-fundo);display:flex;flex-direction:column;gap:.5rem}#chatbot-options button{width:100%;padding:.75rem;border:1px solid var(--cor-primaria);background-color:transparent;color:var(--cor-primaria);border-radius:var(--borda-radius);cursor:pointer;transition:var(--transicao);font-weight:600}#chatbot-options button:hover{background-color:var(--cor-primaria);color:#fff}
 
 /* --- RESPONSIVIDADE --- */
@@ -614,19 +673,18 @@ section {
   }
 }
 
-/* Regra chave para o menu desktop */
 @media (min-width: 992px) {
   .cabecalho_principal {
     padding: 1rem 2rem;
   }
   .cabecalho__menu__links {
-    display: flex; /* Mostra os links de navegação */
+    display: flex;
   }
   .header__actions {
-    display: flex; /* Mostra os botões de ação */
+    display: flex;
   }
   .cabecalho__menu__icon {
-    display: none; /* Esconde o botão de menu hamburguer */
+    display: none;
   }
    .equipe__grid, .quem-somos__grid {
     grid-template-columns: repeat(4, 1fr);

@@ -12,7 +12,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     mobileMenuButton.addEventListener("click", () => {
         mobileMenu.classList.toggle("active");
-        // Troca o ícone do botão
         const icon = mobileMenuButton.querySelector("i");
         if (mobileMenu.classList.contains("active")) {
             icon.classList.remove("fa-bars");
@@ -23,7 +22,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // Fecha o menu ao clicar em um link
     document.querySelectorAll(".mobile-menu a").forEach(link => {
         link.addEventListener("click", () => {
             mobileMenu.classList.remove("active");
@@ -38,7 +36,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const currentTheme = localStorage.getItem("theme");
     const htmlElement = document.documentElement;
 
-    // Aplica o tema salvo ao carregar a página
     if (currentTheme) {
         htmlElement.setAttribute("data-theme", currentTheme);
         if (currentTheme === "dark") {
@@ -47,7 +44,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // Adiciona o evento de clique para trocar o tema
     themeToggleButton.addEventListener("click", () => {
         const newTheme = htmlElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
         htmlElement.setAttribute("data-theme", newTheme);
@@ -73,34 +69,10 @@ document.addEventListener("DOMContentLoaded", () => {
     chatbotClose.addEventListener("click", () => chatbotWindow.classList.add("hidden"));
 
     const chatFlow = {
-        start: {
-            message: "Olá! Sou o assistente virtual da Valecon. Como posso ajudar?",
-            options: {
-                "servicos": "Quero saber sobre os serviços",
-                "orcamento": "Gostaria de um orçamento",
-                "contato": "Falar com um atendente",
-            }
-        },
-        servicos: {
-            message: "Oferecemos uma vasta gama de serviços, incluindo: Obras Civis, Infraestrutura, Projetos, Gerenciamento, Pavimentação e muito mais. Deseja mais algum detalhe?",
-            options: {
-                "orcamento": "Sim, quero um orçamento",
-                "start": "Voltar ao início",
-            }
-        },
-        orcamento: {
-            message: "Ótimo! Para um orçamento detalhado, por favor, entre em contato conosco pelo WhatsApp ou preencha nosso formulário na seção de contato. É rápido e fácil!",
-            link: "https://api.whatsapp.com/send?phone=553195521386&text=Ol%C3%A1,%20gostaria%20de%20fazer%20um%20or%C3%A7amento!",
-            options: {
-                "start": "Voltar ao início",
-            }
-        },
-        contato: {
-            message: "Para falar com nossa equipe, ligue para (31) 99552-1386 ou envie um e-mail para comercial@valeconengenharia.com.br.",
-            options: {
-                "start": "Voltar ao início",
-            }
-        }
+        start: { message: "Olá! Sou o assistente virtual da Valecon. Como posso ajudar?", options: { "servicos": "Quero saber sobre os serviços", "orcamento": "Gostaria de um orçamento", "contato": "Falar com um atendente", } },
+        servicos: { message: "Oferecemos uma vasta gama de serviços, incluindo: Obras Civis, Infraestrutura, Projetos, Gerenciamento, Pavimentação e muito mais. Deseja mais algum detalhe?", options: { "orcamento": "Sim, quero um orçamento", "start": "Voltar ao início", } },
+        orcamento: { message: "Ótimo! Para um orçamento detalhado, por favor, entre em contato conosco pelo WhatsApp ou preencha nosso formulário na seção de contato. É rápido e fácil!", link: "https://api.whatsapp.com/send?phone=553195521386&text=Ol%C3%A1,%20gostaria%20de%20fazer%20um%20or%C3%A7amento!", options: { "start": "Voltar ao início", } },
+        contato: { message: "Para falar com nossa equipe, ligue para (31) 99552-1386 ou envie um e-mail para comercial@valeconengenharia.com.br.", options: { "start": "Voltar ao início", } }
     };
 
     function addBotMessage(text) {
@@ -108,7 +80,7 @@ document.addEventListener("DOMContentLoaded", () => {
         messageEl.classList.add("chat-message", "bot-message");
         messageEl.innerText = text;
         chatbotBody.appendChild(messageEl);
-        chatbotBody.scrollTop = chatbotBody.scrollHeight; // Auto-scroll
+        chatbotBody.scrollTop = chatbotBody.scrollHeight;
     }
 
     function showOptions(options, link = null) {
@@ -135,21 +107,44 @@ document.addEventListener("DOMContentLoaded", () => {
         addBotMessage(step.message);
         showOptions(step.options, step.link || null);
     }
-
-    // Inicia o chat
+    
     function startChat() {
-        chatbotBody.innerHTML = ""; // Limpa o chat anterior
+        chatbotBody.innerHTML = "";
         const startStep = chatFlow.start;
         addBotMessage(startStep.message);
         showOptions(startStep.options);
     }
 
-    startChat(); // Inicia o chat quando a página carrega
+    startChat();
     
-    // Reinicia o chat ao abrir o widget novamente
     chatbotToggle.addEventListener("click", () => {
       if(!chatbotWindow.classList.contains('hidden')) {
           startChat();
       }
-    })
+    });
+
+    // --- NOVA LÓGICA DO CARROSSEL DE PORTFÓLIO ---
+    const portfolioCarousel = document.getElementById('portfolio-carousel');
+    if (portfolioCarousel) {
+        new Splide(portfolioCarousel, {
+            type       : 'loop',      // Cria um carrossel infinito
+            perPage    : 3,           // 3 slides visíveis em telas grandes
+            perMove    : 1,           // Move 1 slide por vez
+            gap        : '1.5rem',    // Espaçamento entre os slides
+            pagination : true,        // Habilita a paginação (bolinhas)
+            arrows     : true,        // Habilita as setas de navegação
+            autoplay   : true,        // Inicia a passagem automática
+            interval   : 4000,        // Intervalo de 4 segundos para cada slide
+            pauseOnHover: true,       // Pausa ao passar o mouse sobre o carrossel
+            breakpoints: {
+                992: {
+                    perPage: 2, // 2 slides visíveis em tablets
+                },
+                768: {
+                    perPage: 1, // 1 slide visível em celulares
+                    gap: '1rem',
+                },
+            },
+        }).mount();
+    }
 });
